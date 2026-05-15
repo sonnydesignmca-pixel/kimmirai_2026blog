@@ -22,6 +22,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
+        @php
+            phpinfo();
+        @endphp
 
        <div class="max-w-2xl m-auto text-center">
          {{-- <header>
