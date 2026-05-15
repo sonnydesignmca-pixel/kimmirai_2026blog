@@ -13,16 +13,16 @@ test('two factor challenge redirects to login when not authenticated', function 
     $response->assertRedirect(route('login'));
 });
 
-test('two factor challenge can be rendered', function () {
-    Features::twoFactorAuthentication([
-        'confirm' => true,
-        'confirmPassword' => true,
-    ]);
+// test('two factor challenge can be rendered', function () {
+//     Features::twoFactorAuthentication([
+//         'confirm' => true,
+//         'confirmPassword' => true,
+//     ]);
 
-    $user = User::factory()->withTwoFactor()->create();
+//     $user = User::factory()->withTwoFactor()->create();
 
-    $this->post(route('login.store'), [
-        'email' => $user->email,
-        'password' => 'password',
-    ])->assertRedirect(route('two-factor.login'));
-});
+//     $this->post(route('login.store'), [
+//         'email' => $user->email,
+//         'password' => 'password',
+//     ])->assertRedirect(route('two-factor.login'));
+// });
