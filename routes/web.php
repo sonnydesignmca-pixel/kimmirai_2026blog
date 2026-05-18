@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::livewire('/', 'pages::post.index')->name('post.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('/dashboard', 'pages::dashboard')->name('dashboard');
@@ -10,7 +10,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::livewire('/post', 'pages::post.index')->name('post.index');
 Route::livewire('/post/create', 'pages::post.create')->middleware('auth')->name('post.create');
 Route::livewire('/post/{post}/edit', 'pages::post.edit')->middleware('auth')->name('post.edit');
 Route::livewire('/post/{post}', 'pages::post.show')->name('post.show');

@@ -25,7 +25,7 @@
           <flux:sidebar.item href="{{ route('user.posts',Auth::user()) }}"  wire:navigate>投稿した記事</flux:sidebar.item>
           <flux:sidebar.item href="{{ route('user.bookmarks',Auth::user()) }}"  wire:navigate>保存した記事</flux:sidebar.item>
         </flux:sidebar.group>
-        <flux:sidebar.item icon="user" href="{{ route('user.show',Auth::user()->id) }}" wire:navigate>マイアカウント</flux:sidebar.item>
+        <flux:sidebar.item icon="user" href="{{ route('user.show',Auth::user()->id) }}" wire:navigate>マイプロフィール</flux:sidebar.item>
         @endauth
 
     </flux:sidebar.nav>
@@ -56,10 +56,10 @@
         <flux:dropdown class="md:hidden">
             <flux:navbar.item icon="user-circle"></flux:navbar.item>
             <flux:navmenu>
-                <flux:navmenu.item href="#">フォロー</flux:navmenu.item>
-                <flux:navmenu.item href="#">フォロワー</flux:navmenu.item>
-                <flux:navmenu.item href="{{ route('dashboard.post') }}">投稿した記事</flux:navmenu.item>
-                <flux:navmenu.item href="#">保存した記事</flux:navmenu.item>
+                <flux:navmenu.item href="{{ route('user.followings',Auth::user()) }}">フォロー</flux:navmenu.item>
+                <flux:navmenu.item href="{{ route('user.followers',Auth::user()) }}">フォロワー</flux:navmenu.item>
+                <flux:navmenu.item href="{{ route('user.posts',Auth::user()) }}">投稿した記事</flux:navmenu.item>
+                <flux:navmenu.item href="{{ route('user.bookmarks',Auth::user()) }}">保存した記事</flux:navmenu.item>
             </flux:navmenu>
         </flux:dropdown>
         <flux:navbar.item icon="user" href="{{ route('user.show',Auth::user()->id) }}" wire:navigate></flux:navbar.item>

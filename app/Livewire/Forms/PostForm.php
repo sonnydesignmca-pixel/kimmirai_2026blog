@@ -23,28 +23,18 @@ class PostForm extends Form
     public $body = '';
 
     #[Validate([
-        'photos' => 'nullable|array', // 配列自体が空（未選択）でもOKにする
-        'photos.*' => 'mimes:jpeg,png,jpg,gif,svg|max:1024', // 各ファイルへのルール
+        'photos' => 'nullable|array',
+        'photos.*' => 'mimes:jpeg,png,jpg,gif,svg|max:1024',
     ])]
     public $photos = [];
 
     public $photo_path = [];
-
-    // public $published = false;
-    // public $notifications = [];
-    // public $allowNotifications = false;
     public function setPost(Post $post)
     {
         $this->id = $post->id;
         $this->title = $post->title;
         $this->body = $post->body;
-        // $this->published = $post->published;
-        // $this->notifications = $post->notifications ?? [];
-        // notificationに何か値が入っていればtrue Yesを選択
-        // $this->allowNotifications = count($this->notifications) > 0;
         $this->photo_path = $post->photo_path;
-
-        // updateメソッドで使えるように$post本体を定義
         $this->post = $post;
     }
     public function store()
@@ -61,8 +51,6 @@ class PostForm extends Form
                 'photo_path'
             ])
         );
-
-        // cache()->forget('published-count');
 
     }
 
@@ -81,8 +69,6 @@ class PostForm extends Form
                 'photo_path'
             ]),
         );
-
-        // cache()->forget('published-count');
 
     }
 
