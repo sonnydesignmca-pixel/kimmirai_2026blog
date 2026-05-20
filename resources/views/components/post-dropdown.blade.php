@@ -20,7 +20,7 @@
      @can("update", $post)
        <hr class="w-full">
        <flux:menu.item href="{{ route('post.edit', $post) }}">編集</flux:menu.item>
-       <flux:menu.item wire:click="deletePost({{ $post->id }})">削除</flux:menu.item>
+       <flux:menu.item wire:click="deletePost({{ $post->id }})" wire:confirm="記事を削除しますか?">削除</flux:menu.item>
      @endcan
    @endauth
   </flux:menu>

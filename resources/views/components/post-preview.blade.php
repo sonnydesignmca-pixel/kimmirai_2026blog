@@ -12,7 +12,7 @@
     <hr class="w-full">
     <div class="mt-4 p-4">{!! Str::limit(Str::markdown($post->body), 60) !!}</div>
 
-    @if (isset($post->photo_path))
+    @if (($post->photo_path))
       <div class="flex flex-wrap">
         @foreach ($post->photo_path as $path)
           <img class="h-20 w-auto" src="{{ Storage::url($path) }}" alt="">
@@ -37,7 +37,9 @@
       @endauth
 
       <div class="flex items-center">
-        <img src="{{ Storage::url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full">
+        @if (($post->user->logo))
+            <img src="{{ Storage::url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full">
+        @endif
         <p>
           <a href="{{ route("user.show", $post->user) }}" wire:navigate
             class="hover:text-blue-500">{{ $post->user->name }} </a>/

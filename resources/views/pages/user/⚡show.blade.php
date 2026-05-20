@@ -21,7 +21,9 @@ new class extends Component {
   <div class="mt-6 p-6 bg-white rounded-2xl shadow-md border border-gray-400 w-4/5 m-auto">
     <div class="flex items-center justify-between">
       <div class="flex items-center">
-        <img src="{{ Storage::url($user->logo) }}" alt="" class="h-12 w-auto rounded-full">
+        @if ($user->logo)
+            <img src="{{ Storage::url($user->logo) }}" alt="" class="h-12 w-auto rounded-full">
+        @endif
         <p class="p-4 text-lg font-semibold">{{ $this->user->name }}</p>
       </div>
 

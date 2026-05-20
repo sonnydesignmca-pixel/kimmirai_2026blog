@@ -25,7 +25,9 @@ new class extends Component {
   @foreach ($this->followings as $following)
     <x-panel class="flex justify-between">
       <div class="flex items-center">
-        <img src="{{ Storage::url($following->logo) }}" alt="" class="h-8 w-auto rounded-full">
+        @if ($following->logo)
+            <img src="{{ Storage::url($following->logo) }}" alt="" class="h-8 w-auto rounded-full">
+        @endif
         <p class="font-semibold"><a href="{{ route("user.show", $following) }}" wire:navigate
             class="hover:text-blue-500">{{ $following->name }} </a></p>
         </p>
