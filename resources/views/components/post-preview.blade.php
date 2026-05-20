@@ -10,7 +10,7 @@
     {{-- <flux:button variant="danger" id="delete" x-on:click="$dispatch('delete-post', {id:'{{$post->id}}'})" >JS削除</flux:button> --}}
     {{-- <flux:button variant="danger" wire:click="delete({{ $post->id }})">LW削除</flux:button> --}}
     <hr class="w-full">
-    <p class="mt-4 p-4">{{ Str::limit($post->body, 120) }}</p>
+    <div class="mt-4 p-4">{!! Str::limit(Str::markdown($post->body), 60) !!}</div>
 
     @if (isset($post->photo_path))
       <div class="flex flex-wrap">

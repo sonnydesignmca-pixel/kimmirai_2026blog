@@ -37,6 +37,11 @@ class PostForm extends Form
         $this->photo_path = $post->photo_path;
         $this->post = $post;
     }
+
+    public function updatedBody()
+    {
+
+    }
     public function store()
     {
         $this->validate();

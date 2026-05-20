@@ -34,8 +34,15 @@ new class extends Component {
     </div>
 
     <div class="mb-6">
-      <flux:textarea wire:model="form.body" label="本文" placeholder="ここに本文を入力" rows="10" resize="vertical">
+      <flux:textarea wire:model.live="form.body" label="本文(マークダウン)" placeholder="ここに本文を入力" rows="10" resize="vertical">
       </flux:textarea>
+    </div>
+
+    <div class="mb-6">
+        <p class="mb-2 text-sm font-medium">プレビュー</p>
+        <div class="w-full border-1 rounded-lg p-2 shadow-sm">
+            <div class="prose leading-5 mt-4 p-4">{!! Str::markdown($form->body) !!}</div>
+        </div>
     </div>
 
     <div class="mb-6">
