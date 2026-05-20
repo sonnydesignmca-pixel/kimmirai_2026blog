@@ -48,7 +48,7 @@ new class extends Component {
     </div>
 
     <div class="mb-6">
-        <p class="mb-2 text-sm font-medium">プレビュー</p>
+        <p class="mb-2 text-sm font-medium">本文プレビュー</p>
         <div class="w-full border-1 rounded-lg p-2 shadow-sm">
             <div class="prose leading-5 mt-4 p-4">{!! Str::markdown($form->body) !!}</div>
         </div>
