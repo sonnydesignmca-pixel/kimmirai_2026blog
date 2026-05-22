@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -12,6 +13,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
+     *
+     * @return void
      */
     public function register(): void
     {
@@ -20,11 +23,15 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     *
+     * @param UrlGenerator $url
+     * @return void
      */
-    public function boot(): void
+    public function boot(UrlGenerator $url): void
     {
-        $this->configureDefaults();
-    }
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
+    }}
 
     /**
      * Configure default behaviors for production-ready applications.
