@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('photo_path')->nullable();
+            // string から json に変更し、NULLも許容する
+            $table->json('photo_path')->nullable();
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
+            // ロールバック時はカラムごと削除する
             $table->dropColumn('photo_path');
         });
-    }
-};
+    }};
