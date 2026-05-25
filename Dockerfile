@@ -1,11 +1,10 @@
-FROM php:8.4-fpm
+FROM webdevops/php-nginx:8.4
 
 RUN apt-get update && apt-get install -y \
-git \
-unzip \
-libpq-dev
-
-RUN docker-php-ext-install pdo_pgsql bcmath
+    git \
+    unzip \
+    libpq-dev \
+    && docker-php-ext-install pdo_pgsql bcmath
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -15,20 +14,11 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
+# webdevops用のドキュメントルート設定
+ENV WEB_DOCUMENT_ROOT=/app/public
 
 # Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
-
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
-
-CMD ["/start.sh"]
-
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+ENV LOG_CHANNEL=stderr
+ENV COMPOSER_ALLOW_SUPERUSER=1
