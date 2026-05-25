@@ -10,22 +10,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        // PostgreSQL（Render環境）の場合のみ、生のSQLでUSINGを指定して型変更する
-        if (config('database.default') === 'pgsql') {
-            DB::statement('ALTER TABLE posts ALTER COLUMN photo_path TYPE json USING photo_path::json');
+        DB::statement('ALTER TABLE posts ALTER COLUMN photo_path TYPE json USING photo_path::json');
 
-            // 型以外の変更（nullableなど）を通常のスキーマで行う
-            Schema::table('posts', function (Blueprint $table) {
-                $table->json('photo_path')->nullable()->change();
-            });
-        } else {
-            // ローカル（SQLiteなど）用の従来の記述
-            Schema::table('posts', function (Blueprint $table) {
-                $table->json('photo_path')->nullable()->change();
-            });
-        }
+        // 型以外の変更（nullableなど）を通常のスキーマで行う
+        Schema::table('posts', function (Blueprint $table) {
+            $table->json('photo_path')->nullable()->change();
+        });
+
+        //こっちはsqlite用
+        // Schema::table('posts', function (Blueprint $table) {
+        //     $table->string('photo_path')->nullable();
+        // });
     }
 
     /**
@@ -34,7 +31,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            // ロールバック時はカラムごと削除する
             $table->dropColumn('photo_path');
         });
-    }};
+    }
+};
