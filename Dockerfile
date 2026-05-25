@@ -2,7 +2,7 @@ FROM richarvey/nginx-php-fpm:3.1.6
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Image config
 ENV SKIP_COMPOSER 1
