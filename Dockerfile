@@ -1,8 +1,16 @@
-FROM richarvey/nginx-php-fpm:3.1.6
+FROM php:8.3-fpm
+
+RUN apt-get update && apt-get install -y \ git unzip libpq-dev
+
+RUN docker-php-ext-install pdo pdo_pgsql
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+RUN composer install --no-dev --optimize-autoloader
 
 # Image config
 ENV SKIP_COMPOSER 1
@@ -20,3 +28,4 @@ ENV LOG_CHANNEL stderr
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 CMD ["/start.sh"]
+
