@@ -23,6 +23,9 @@ RUN mkdir -p storage/framework/cache/data \
 
 RUN composer install --no-dev --optimize-autoloader
 
+# npmのパッケージをインストールし、本番用にビルドする
+RUN npm ci && npm run build
+
 # webdevops用のドキュメントルート設定
 ENV WEB_DOCUMENT_ROOT=/app/public
 
