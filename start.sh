@@ -15,4 +15,7 @@ php artisan vendor:publish --provider="CloudinaryLabs\CloudinaryLaravel\Cloudina
 echo "Running migrations..."
 php artisan migrate --force
 
+echo "Publishing storage..."
+php artisan storage:link
+
 php artisan serve --host=0.0.0.0 --port=$PORT
