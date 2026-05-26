@@ -30,6 +30,10 @@ RUN composer install --no-dev --optimize-autoloader
 #依存性をダウンロードしてnpmビルドを実行
 RUN npm install && npm run build
 
+# start.shをコピーして実行権限を付与
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # webdevops用のドキュメントルート設定
 ENV WEB_DOCUMENT_ROOT=/app/public
 
@@ -39,4 +43,4 @@ ENV APP_DEBUG=false
 ENV LOG_CHANNEL=stderr
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-CMD ["/start.sh"]
+ENTRYPOINT ["/start.sh"]
