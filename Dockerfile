@@ -1,3 +1,16 @@
+# ==========================================
+# 1. フロントエンド（Vite）のビルドステージ
+# ==========================================
+FROM node:24-slim AS frontend-builder
+WORKDIR /build
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# ==========================================
+# 2. 本番環境（PHP / Nginx）のステージ
+# ==========================================
 FROM webdevops/php-nginx:8.4
 
 RUN apt-get update && apt-get install -y \
@@ -12,6 +25,9 @@ WORKDIR /app
 
 # 所有者を application ユーザーにしてコピーする
 COPY --chown=application:application . .
+
+# 💡 修正ポイント: ステージ1で作成したビルド成果物（public/build）だけをコピーする
+COPY --from=frontend-builder --chown=application:application /build/public/build ./public/build
 
 # Laravelの実行に必要な空フォルダを生成し、権限を付与する
 RUN mkdir -p storage/framework/cache/data \
