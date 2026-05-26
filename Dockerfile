@@ -21,7 +21,14 @@ RUN mkdir -p storage/framework/cache/data \
     && chown -R application:application storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
+# Node.jsとnpmをインストール
+    RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y nodejs
+
 RUN composer install --no-dev --optimize-autoloader
+
+#依存性をダウンロードしてnpmビルドを実行
+RUN npm install && npm run build
 
 # webdevops用のドキュメントルート設定
 ENV WEB_DOCUMENT_ROOT=/app/public
