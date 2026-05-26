@@ -97,7 +97,7 @@
 
                         <flux:menu.radio.group>
                             <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                                {{ __('Settings') }}
+                                設定
                             </flux:menu.item>
                         </flux:menu.radio.group>
 

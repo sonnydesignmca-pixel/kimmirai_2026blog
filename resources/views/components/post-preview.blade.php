@@ -38,7 +38,7 @@
 
       <div class="flex items-center">
         @if (($post->user->logo))
-            <img src="{{ Storage::url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full">
+            <img src="{{ Storage::url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full mr-4">
         @endif
         <p>
           <a href="{{ route("user.show", $post->user) }}" wire:navigate

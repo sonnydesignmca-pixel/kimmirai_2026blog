@@ -26,7 +26,7 @@ new class extends Component {
     <x-panel class="flex justify-between">
       <div class="flex items-center">
         @if ($following->logo)
-            <img src="{{ Storage::url($following->logo) }}" alt="" class="h-8 w-auto rounded-full">
+            <img src="{{ Storage::url($following->logo) }}" alt="" class="h-8 w-auto rounded-full mr-4">
         @endif
         <p class="font-semibold"><a href="{{ route("user.show", $following) }}" wire:navigate
             class="hover:text-blue-500">{{ $following->name }} </a></p>

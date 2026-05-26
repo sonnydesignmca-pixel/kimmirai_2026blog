@@ -72,7 +72,10 @@ new class extends Component
       </div>
     @endif
 
-    <div class="flex justify-end p-4 text-sm font-semibold">
+    <div class="flex items-center justify-end p-4 text-sm font-semibold">
+        @if (($post->user->logo))
+            <img src="{{ Storage::url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full mr-4">
+        @endif
       <p><a href="{{ route("user.show", $post->user) }}" wire:navigate
           class="hover:text-blue-500">{{ $post->user->name }} </a>/
         {{ $post->created_at }}
