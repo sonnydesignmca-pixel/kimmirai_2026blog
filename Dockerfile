@@ -10,7 +10,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-COPY . .
+# 所有者を application ユーザーにしてコピーする
+COPY --chown=application:application . .
+
+# Laravelの実行に必要な空フォルダを生成し、権限を付与する
+RUN mkdir -p storage/framework/cache/data \
+    && mkdir -p storage/framework/sessions \
+    && mkdir -p storage/framework/views \
+    && mkdir -p storage/logs \
+    && chown -R application:application storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 RUN composer install --no-dev --optimize-autoloader
 
