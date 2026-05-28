@@ -49,7 +49,7 @@ new class extends Component
 
       </div>
       <hr class="w-full">
-      <div class="prose leading-5 mt-4 p-4">{!! Str::markdown($this->post->body) !!}</div>
+      <div class="prose leading-6 mt-4 p-4">{!! Str::markdown($this->post->body) !!}</div>
 
       @if (isset($post->photo_path))
       <div class="flex flex-wrap">
