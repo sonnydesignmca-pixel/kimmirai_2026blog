@@ -43,7 +43,7 @@ new class extends Component {
     </div>
 
     <div class="mb-6">
-      <flux:textarea wire:model.live="form.body" label="本文(マークダウン)" placeholder="ここに本文を入力" rows="10" resize="vertical">
+      <flux:textarea wire:model.live.debounce.500ms="form.body" label="本文(マークダウン)" placeholder="ここに本文を入力" rows="10" resize="vertical">
       </flux:textarea>
     </div>
 
