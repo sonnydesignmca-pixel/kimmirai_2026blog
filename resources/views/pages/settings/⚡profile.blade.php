@@ -46,7 +46,7 @@ new #[Title("プロフィール設定")] class extends Component {
             $user->email_verified_at = null;
         }
         if ($this->logo) {
-            $user->logo = $this->logo->storePublicly('profile-logos', ['disk' => 'public']);
+            $user->logo = $this->logo->storePublicly('profile-logos', ['disk' => 's3']);
         }
 
         $user->save();
@@ -131,7 +131,7 @@ new #[Title("プロフィール設定")] class extends Component {
                     @endif
 
                 @elseif (isset(Auth::user()->logo))
-                    <img class="h-15 w-auto" src="{{ Storage::url($this->logo_path) }}" alt="">
+                    <img class="h-15 w-auto" src="{{ Storage::disk('s3')->url($this->logo_path) }}" alt="">
                 @endif
 
             </div>

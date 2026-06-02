@@ -3,6 +3,7 @@
 use App\Concerns\PasswordValidationRules;
 use App\Livewire\Actions\Logout;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 new class extends Component {
@@ -18,6 +19,9 @@ new class extends Component {
         $this->validate([
             'password' => $this->currentPasswordRules(),
         ]);
+        if(Auth::user()->logo){
+            Storage::disk('s3')->delete(Auth::user()->logo);
+        }
 
         tap(Auth::user(), $logout(...))->delete();
 
