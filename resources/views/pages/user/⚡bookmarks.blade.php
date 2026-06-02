@@ -19,7 +19,7 @@ new #[Title('ブックマークした記事')] class extends Component{
 
     public User $user;
 
-    #[Url(as: 'q')]
+    #[Url(as: 'q',except:'')]
     public $search = "";
 
 

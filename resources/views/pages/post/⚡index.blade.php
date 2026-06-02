@@ -15,7 +15,7 @@ new #[Title('記事一覧')] class extends Component {
     use PostTrait;
     use UserTrait;
 
-    #[Url(as:'q')]
+    #[Url(as:'q',except:'')]
     public $search = "";
     public $amount = 5;
 
