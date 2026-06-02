@@ -42,17 +42,9 @@ new #[Title('記事一覧')] class extends Component {
     public function posts()
     {
         $query = Post::query();
-        if (!$this->showOnlyFollowing) {
-            if ($this->search) {
-                $query->where("title", "like", "%{$this->search}%")
-                    ->orWhere("body", "like", "%{$this->search}%")
-                    ->orWhereHas('user', function ($subQuery) {
-                        $subQuery->where('name', 'like', "%{$this->search}%");
-                    });
-            }
 
-        } else {
-
+        // 1. フォローフィルターの適用
+        if ($this->showOnlyFollowing) {
             $query->whereIn('user_id', function ($subQuery) {
                 $subQuery->select('followed_id')
                     ->from('follows')
@@ -60,6 +52,7 @@ new #[Title('記事一覧')] class extends Component {
             });
         }
 
+        // 2. 検索ワードの適用（whereの重複を削除し、グループ化して安全に）
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where("title", "like", "%{$this->search}%")
@@ -69,6 +62,8 @@ new #[Title('記事一覧')] class extends Component {
                     });
             });
         }
+
+        // 3. 指定した件数分だけイーガーロードして取得
         return $query->with("user")->latest()->take($this->amount)->get();
     }
 };
@@ -123,11 +118,17 @@ new #[Title('記事一覧')] class extends Component {
         </button>
     </div>
 
-    <div class="w-full text-center">
-        <flux:icon.loading wire:loading wire:target="loadMore" class="m-auto"></flux:icon.loading>
+    {{-- 読み込み中のインジケーター --}}
+    <div wire:loading wire:target="loadMore" class="w-full text-center py-4">
+        <flux:icon.loading class="m-auto"></flux:icon.loading>
     </div>
 
-    <div wire:intersect="loadMore"></div>
+    {{-- 📌 修正ポイント：ローディング中でない、かつデータがまだ存在する可能性がある時だけ監視する --}}
+    <div wire:loading.remove wire:target="loadMore">
+        @if (count($this->posts) >= $amount)
+            <div wire:intersect="loadMore" class="h-4 w-full bg-transparent"></div>
+        @endif
+    </div>
 
     {{-- {{ $this->posts->links() }} --}}
 
