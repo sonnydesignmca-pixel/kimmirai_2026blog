@@ -35,7 +35,7 @@ class CreateNewUser implements CreatesNewUsers
 
 
         if (isset($input['logo'])) {
-            $this->logoPath = $input['logo']->storePublicly('profile-logos', ['disk'=>'public']);
+            $this->logoPath = $input['logo']->storePublicly('profile-logos', ['disk'=>'s3']);
             }
 
 

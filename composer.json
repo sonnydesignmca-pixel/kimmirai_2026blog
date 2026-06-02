@@ -14,10 +14,12 @@
         "laravel/fortify": "^1.34",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
+        "league/flysystem-aws-s3-v3": "3.0.0",
         "livewire/flux": "^2.13",
         "livewire/livewire": "^4.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^4.2",
         "fakerphp/faker": "^1.24",
         "laravel-lang/starter-kits": "^1.13",
         "laravel/pail": "^1.2.5",

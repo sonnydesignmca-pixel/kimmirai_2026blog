@@ -15,7 +15,7 @@
     @if (($post->photo_path))
       <div class="flex flex-wrap">
         @foreach ($post->photo_path as $path)
-          <img class="h-20 w-auto" src="{{ Storage::url($path) }}" alt="">
+          <img class="h-20 w-auto" src="{{ Storage::disk('s3')->url($path) }}" alt="">
         @endforeach
       </div>
     @endif

@@ -56,7 +56,7 @@ new class extends Component
         @foreach ($post->photo_path as $path)
           <div x-data="{open: false}">
             <button x-on:click="open = true" class="cursor-pointer hover:opacity-70">
-              <img class="h-20 w-auto" src="{{ Storage::url($path) }}" alt="">
+              <img class="h-20 w-auto" src="{{ Storage::disk('s3')->url($path) }}" alt="">
             </button>
 
             <div x-cloak x-show="open" class="fixed top-0 left-0 w-full h-full bg-black/10 flex justify-center items-center border">
@@ -64,7 +64,7 @@ new class extends Component
                   <div class="text-end">
                     <div  x-on:click="open = false" class="inline text-3xl cursor-pointer">x</div>
                   </div>
-                  <img class="h-auto w-auto" src="{{ Storage::url($path) }}" alt="">
+                  <img class="h-auto w-auto" src="{{ Storage::disk('s3')->url($path) }}" alt="">
               </div>
             </div>
           </div>

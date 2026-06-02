@@ -63,7 +63,7 @@ new class extends Component {
           @for ($i=0;$i<count($form->photo_path);$i++)
             <div wire:key="{{ $i }}">
               <button class="cursor-pointer" type="button" wire:click="deleteSavedPhoto({{ $i }})"><flux:icon.x-circle variant="solid" class="absolute hover:opacity-60"/>
-              <img class="h-20 w-auto" src="{{ Storage::url($form->photo_path[$i]) }}" alt="">
+              <img class="h-20 w-auto" src="{{ Storage::disk('s3')->url($form->photo_path[$i]) }}" alt="">
             </div>
           @endfor
 

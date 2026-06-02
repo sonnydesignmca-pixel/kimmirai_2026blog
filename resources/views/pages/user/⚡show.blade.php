@@ -22,7 +22,7 @@ new class extends Component {
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         @if ($user->logo)
-            <img src="{{ Storage::url($user->logo) }}" alt="" class="h-12 w-auto rounded-full">
+            <img src="{{ Storage::disk('s3')->url($user->logo) }}" alt="" class="h-12 w-auto rounded-full">
         @endif
         <p class="p-4 text-lg font-semibold">{{ $this->user->name }}</p>
       </div>

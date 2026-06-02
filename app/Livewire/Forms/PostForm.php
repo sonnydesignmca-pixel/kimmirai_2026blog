@@ -47,7 +47,7 @@ class PostForm extends Form
         $this->validate();
         if ($this->photos) {
             foreach($this->photos as $photo)
-            $this->photo_path[] = $photo->storePublicly('post_photos', ['disk' => 'public']);
+            $this->photo_path[] = $photo->storePublicly('post_photos', ['disk' => 's3']);
         }
         auth()->user()->posts()->create(
             $this->only([
@@ -65,7 +65,7 @@ class PostForm extends Form
 
         if ($this->photos) {
             foreach ($this->photos as $photo)
-                $this->photo_path[] = $photo->storePublicly('post_photos', ['disk' => 'public']);
+                $this->photo_path[] = $photo->storePublicly('post_photos', ['disk' => 's3']);
         }
         $this->post->update(
             $this->only([
