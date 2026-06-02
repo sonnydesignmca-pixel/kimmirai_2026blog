@@ -22,6 +22,7 @@ new class extends Component {
 
 <div>
   <x-page-header>フォローしているユーザー</x-page-header>
+  
   @foreach ($this->followings as $following)
     <x-panel class="flex justify-between">
       <div class="flex items-center">
