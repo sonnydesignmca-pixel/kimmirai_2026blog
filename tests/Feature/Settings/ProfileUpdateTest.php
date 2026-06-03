@@ -3,6 +3,20 @@
 use App\Models\User;
 use Livewire\Livewire;
 
+// 👈 ここにbeforeEachを追加して、AWSのダミー環境変数をセットします
+beforeEach(function () {
+    config(['filesystems.disks.s3.key' => 'dummy-key']);
+    config(['filesystems.disks.s3.secret' => 'dummy-secret']);
+    config(['filesystems.disks.s3.region' => 'us-east-1']);
+    config(['filesystems.disks.s3.bucket' => 'dummy-bucket']);
+
+    // AWS SDKが直接参照する環境変数も念のためダミーで埋めます
+    putenv('AWS_ACCESS_KEY_ID=dummy-key');
+    putenv('AWS_SECRET_ACCESS_KEY=dummy-secret');
+    putenv('AWS_DEFAULT_REGION=us-east-1');
+    putenv('AWS_BUCKET=dummy-bucket');
+});
+
 test('profile page is displayed', function () {
     $this->actingAs($user = User::factory()->create());
 
