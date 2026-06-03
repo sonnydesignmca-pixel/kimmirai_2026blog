@@ -22,21 +22,6 @@ jobs:
       matrix:
         php-version: [ '8.4']
 
- # 1. PostgreSQLのサービス（コンテナ）を起動する設定を追加
-    services:
-      postgres:
-        image: postgres:18 # 本番のバージョンに合わせて変更してください
-        env:
-          POSTGRES_DB: laravel_testing
-          POSTGRES_PASSWORD: password
-        ports:
-          - 5432:5432
-        # 起動を確実にするためのヘルスチェック
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -73,22 +58,13 @@ jobs:
       - name: Build Assets
         run: npm run build
 
-      - name: Run Migrations
+       - name: Run Migrations
         env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: laravel_testing
-          DB_USERNAME: postgres
-          DB_PASSWORD: password
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
         run: php artisan migrate --env=testing
 
+      # テスト実行（Pest）
+      # phpunit.xmlにsqliteと書かれているため、ここはenv指定なしでそのまま動きます
       - name: Run Tests
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: laravel_testing
-          DB_USERNAME: postgres
-          DB_PASSWORD: password
         run: ./vendor/bin/pest
