@@ -67,4 +67,6 @@ jobs:
       # テスト実行（Pest）
       # phpunit.xmlにsqliteと書かれているため、ここはenv指定なしでそのまま動きます
       - name: Run Tests
+        env:
+          FILESYSTEM_DISK: testing
         run: ./vendor/bin/pest
