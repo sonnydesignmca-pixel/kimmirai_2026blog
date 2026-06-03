@@ -22,6 +22,22 @@ jobs:
       matrix:
         php-version: [ '8.4']
 
+ # 1. PostgreSQLのサービス（コンテナ）を起動する設定を追加
+    services:
+      postgres:
+        image: postgres:18 # 本番のバージョンに合わせて変更してください
+        env:
+          POSTGRES_DB: laravel_testing
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        # 起動を確実にするためのヘルスチェック
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -32,6 +48,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
           coverage: xdebug
+          extensions: pdo_pgsql
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -57,7 +74,21 @@ jobs:
         run: npm run build
 
       - name: Run Migrations
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: laravel_testing
+          DB_USERNAME: postgres
+          DB_PASSWORD: password
         run: php artisan migrate --env=testing
 
       - name: Run Tests
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: laravel_testing
+          DB_USERNAME: postgres
+          DB_PASSWORD: password
         run: ./vendor/bin/pest
