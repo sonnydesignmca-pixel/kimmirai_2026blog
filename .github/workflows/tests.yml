@@ -58,7 +58,7 @@ jobs:
       - name: Build Assets
         run: npm run build
 
-       - name: Run Migrations
+      - name: Run Migrations
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
