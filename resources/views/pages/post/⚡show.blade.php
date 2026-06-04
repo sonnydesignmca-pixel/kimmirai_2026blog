@@ -33,23 +33,23 @@ new class extends Component {
     <div class="flex justify-between items-center-safe">
       <p class="p-4 text-lg font-semibold">{{ $this->post->title }}</p>
       <div class="flex gap-4">
-        <div class="flex gap-2 items-center">
+        @auth
+          <div class="flex gap-2 items-center">
             <div>
-                @auth
-                  @if (!auth()->user()->bookmarks->contains($post->id))
-                    <button title="記事をブックマーク" class="cursor-pointer" wire:click="bookmark({{ $post->id }})">
-                      <flux:icon.bookmark variant="outline" size="12"></flux:icon.bookmark>
-                    </button>
-                  @else
-                    <button title="ブックマークを解除" class="cursor-pointer" wire:click="unbookmark({{ $post->id }})">
-                      <flux:icon.bookmark variant="solid" size="12" class="text-yellow-400"></flux:icon.bookmark>
-                    </button>
-                  @endif
-                @endauth
+              @if (!auth()->user()->bookmarks->contains($post->id))
+                <button title="記事をブックマーク" class="cursor-pointer" wire:click="bookmark({{ $post->id }})">
+                  <flux:icon.bookmark variant="outline" size="12"></flux:icon.bookmark>
+                </button>
+              @else
+                <button title="ブックマークを解除" class="cursor-pointer" wire:click="unbookmark({{ $post->id }})">
+                  <flux:icon.bookmark variant="solid" size="12" class="text-yellow-400"></flux:icon.bookmark>
+                </button>
+              @endif
             </div>
 
             <div class="text-sm">{{ count($post->bookmarked) }}</div>
-        </div>
+          </div>
+        @endauth
         <x-post-dropdown :$post />
       </div>
 
