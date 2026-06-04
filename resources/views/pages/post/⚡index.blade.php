@@ -118,23 +118,19 @@ new #[Title('記事一覧')] class extends Component {
         </button>
     </div>
 
-    {{-- 読み込み中のインジケーター --}}
     <div wire:loading wire:target="loadMore" class="w-full text-center py-4">
         <flux:icon.loading class="m-auto"></flux:icon.loading>
     </div>
 
-    {{-- 📌 修正ポイント：ローディング中でない、かつデータがまだ存在する可能性がある時だけ監視する --}}
     <div wire:loading.remove wire:target="loadMore">
         @if (count($this->posts) >= $amount)
             <div wire:intersect="loadMore" class="h-4 w-full bg-transparent"></div>
         @endif
     </div>
 
-    {{-- {{ $this->posts->links() }} --}}
 
 </div>
 
-{{-- 検索ワード更新時にページトップへ戻る --}}
 <script>
     document.addEventListener('scrollTop', () => {
         window.scrollTo({
