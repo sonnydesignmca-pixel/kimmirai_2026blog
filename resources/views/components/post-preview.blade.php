@@ -12,46 +12,44 @@
     <hr class="w-full">
     <div class="mt-4 p-4">{!! Str::limit(Str::markdown($post->body), 60) !!}</div>
 
-    @if (($post->photo_path))
+    @if ($post->photo_path)
       <div class="flex flex-wrap">
         @foreach ($post->photo_path as $path)
-          <img class="h-20 w-auto" src="{{ Storage::disk('s3')->url($path) }}" alt="">
+          <img class="h-20 w-auto" src="{{ Storage::disk("s3")->url($path) }}" alt="">
         @endforeach
       </div>
     @endif
 
     <div class="flex justify-between items-center p-4 text-sm">
       <div class="flex gap-2 items-center">
-        <div>
-            @auth
-              @if (!auth()->user()->bookmarks->contains($post->id))
-                <button title="記事をブックマーク" class="cursor-pointer"
-                wire:click="bookmark({{ $post->id }})">
-                  <flux:icon.bookmark variant="outline" size="12"></flux:icon.bookmark>
-                </button>
-
-                @else
-                <button title="ブックマークを解除" class="cursor-pointer"
-                wire:click="unbookmark({{ $post->id }})">
-                  <flux:icon.bookmark variant="solid" size="12" class="text-yellow-400"></flux:icon.bookmark>
-                </button>
-              @endif
-            @endauth
-        </div>
-        <div>{{ count($post->bookmarked) }}</div>
+        @auth
+          <div>
+            @if (!auth()->user()->bookmarks->contains($post->id))
+              <button title="記事をブックマーク" class="cursor-pointer" wire:click="bookmark({{ $post->id }})">
+                <flux:icon.bookmark variant="outline" size="12"></flux:icon.bookmark>
+              </button>
+            @else
+              <button title="ブックマークを解除" class="cursor-pointer" wire:click="unbookmark({{ $post->id }})">
+                <flux:icon.bookmark variant="solid" size="12" class="text-yellow-400"></flux:icon.bookmark>
+              </button>
+            @endif
+          </div>
+          <div>{{ count($post->bookmarked) }}</div>
+        @endauth
       </div>
 
       <div class="flex items-center">
-        @if (($post->user->logo))
-            <img src="{{ Storage::disk('s3')->url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full mr-4">
+        @if ($post->user->logo)
+          <img src="{{ Storage::disk("s3")->url($post->user->logo) }}" alt=""
+            class="h-8 w-auto rounded-full mr-4">
         @endif
         <p>
           <a href="{{ route("user.show", $post->user) }}" wire:navigate
             class="hover:text-blue-500 font-semibold">{{ $post->user->name }} </a>/
           {{ $post->created_at }}
         </p>
+      </div>
     </div>
+    {{-- <x-like-button :$post /> --}}
   </div>
-  {{-- <x-like-button :$post /> --}}
-</div>
 </div>
