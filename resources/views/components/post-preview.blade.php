@@ -20,29 +20,34 @@
       </div>
     @endif
 
-    <div class="flex justify-between items-center p-4 text-sm font-semibold">
-      @auth
-        @if (!auth()->user()->bookmarks->contains($post->id))
-          <button title="記事をブックマーク" class="cursor-pointer"
-          wire:click="bookmark({{ $post->id }})">
-            <flux:icon.bookmark variant="outline" size="12"></flux:icon.bookmark>
-          </button>
+    <div class="flex justify-between items-center p-4 text-sm">
+      <div class="flex gap-2 items-center">
+        <div>
+            @auth
+              @if (!auth()->user()->bookmarks->contains($post->id))
+                <button title="記事をブックマーク" class="cursor-pointer"
+                wire:click="bookmark({{ $post->id }})">
+                  <flux:icon.bookmark variant="outline" size="12"></flux:icon.bookmark>
+                </button>
 
-          @else
-          <button title="ブックマークを解除" class="cursor-pointer"
-          wire:click="unbookmark({{ $post->id }})">
-            <flux:icon.bookmark variant="solid" size="12" class="text-yellow-400"></flux:icon.bookmark>
-          </button>
-        @endif
-      @endauth
+                @else
+                <button title="ブックマークを解除" class="cursor-pointer"
+                wire:click="unbookmark({{ $post->id }})">
+                  <flux:icon.bookmark variant="solid" size="12" class="text-yellow-400"></flux:icon.bookmark>
+                </button>
+              @endif
+            @endauth
+        </div>
+        <div>{{ count($post->bookmarked) }}</div>
+      </div>
 
       <div class="flex items-center">
         @if (($post->user->logo))
-            <img src="{{ Storage::url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full mr-4">
+            <img src="{{ Storage::disk('s3')->url($post->user->logo) }}" alt="" class="h-8 w-auto rounded-full mr-4">
         @endif
         <p>
           <a href="{{ route("user.show", $post->user) }}" wire:navigate
-            class="hover:text-blue-500">{{ $post->user->name }} </a>/
+            class="hover:text-blue-500 font-semibold">{{ $post->user->name }} </a>/
           {{ $post->created_at }}
         </p>
     </div>
