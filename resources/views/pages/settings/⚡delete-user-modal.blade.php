@@ -10,6 +10,7 @@ new class extends Component {
     use PasswordValidationRules;
 
     public string $password = '';
+    public $delete_post_photos = [];
 
     /**
      * Delete the currently authenticated user.
@@ -21,6 +22,12 @@ new class extends Component {
         ]);
         if(Auth::user()->logo){
             Storage::disk('s3')->delete(Auth::user()->logo);
+        }
+        if(!empty(Auth::user()->posts)){
+        foreach(Auth::user()->posts->pluck('photo_path')->flatten()->filter()->all() as $path){
+            $this->delete_post_photos[] = $path;
+        }
+            Storage::disk('s3')->delete($this->delete_post_photos);
         }
 
         tap(Auth::user(), $logout(...))->delete();
