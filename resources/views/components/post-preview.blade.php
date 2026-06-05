@@ -10,15 +10,18 @@
     {{-- <flux:button variant="danger" id="delete" x-on:click="$dispatch('delete-post', {id:'{{$post->id}}'})" >JS削除</flux:button> --}}
     {{-- <flux:button variant="danger" wire:click="delete({{ $post->id }})">LW削除</flux:button> --}}
     <hr class="w-full">
-    <div class="mt-4 p-4">{!! Str::limit(Str::markdown($post->body), 60) !!}</div>
+    
+    <div>
+        <div class="mt-4 p-4">{!! Str::limit(Str::markdown($post->body), 60) !!}</div>
 
-    @if ($post->photo_path)
-      <div class="flex flex-wrap">
-        @foreach ($post->photo_path as $path)
-          <img class="h-20 w-auto" src="{{ Storage::disk("s3")->url($path) }}" alt="">
-        @endforeach
-      </div>
-    @endif
+        @if ($post->photo_path)
+          <div class="flex flex-wrap">
+            @foreach ($post->photo_path as $path)
+              <img class="h-20 w-auto" src="{{ Storage::disk("s3")->url($path) }}" alt="">
+            @endforeach
+          </div>
+        @endif
+    </div>
 
     <div class="flex justify-between items-center p-4 text-sm">
       <div class="flex gap-2 items-center">

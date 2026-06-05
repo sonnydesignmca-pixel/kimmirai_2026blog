@@ -46,6 +46,9 @@ new #[Title("プロフィール設定")] class extends Component {
             $user->email_verified_at = null;
         }
         if ($this->logo) {
+            if($this->logo_path){
+            Storage::disk('s3')->delete($this->logo_path);
+            }
             $user->logo = $this->logo->storePublicly('profile-logos', ['disk' => 's3']);
         }
 

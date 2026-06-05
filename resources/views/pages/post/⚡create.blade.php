@@ -75,3 +75,11 @@ new class extends Component {
 
 
 </div>
+{{-- 
+<script>
+    window.addEventListener('beforeunload',e=>{
+        if(this.$dirty('form.body')){
+        e.preventDefault();
+        e.returnValue = '';}
+    })
+</script> --}}
