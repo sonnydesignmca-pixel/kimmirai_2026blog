@@ -1,4 +1,4 @@
-# kimmirai_2026blog
+# kimmirai_SPAブログ
 ![Static Badge](https://img.shields.io/badge/php-blue?style=for-the-badge&logo=php)
 ![Static Badge](https://img.shields.io/badge/Laravel-blue?style=for-the-badge&logo=laravel)
 ![Static Badge](https://img.shields.io/badge/Livewire-blue?style=for-the-badge&logo=livewire&logoColor=pink)
@@ -17,16 +17,27 @@ Laravelで個人製作したポートフォリオです。ブログ記事を投�
 ## URL
 https://kimmirai-2026blog-tokyo.onrender.com
 
-## なぜ作成したか
-これまでに習得した言語や知識を、ポートフォリオとして記録したいと思い作成しました。
-
 ## 使用技術
 - PHP 8.4.16
 - Laravel 13.9.0
-- livewire
+- livewire 4.3.1
 - Tailwind CSS
 - Alpine.js
 - PostgreSQL
 - Render
 - Supabase
+
+## 機能一覧
+- ユーザーログイン、登録、削除
+- ユーザー情報変更(名前、mail、パスワード、アイコン)
+- ユーザー投稿関連
+  - CRUD
+  - 画像投稿
+  - 記事のお気に入り登録・解除(非同期通信)
+- ユーザー間関連
+  - フォロー登録・解除(非同期通信)
+
+## 制作の背景
+これまでに習得した言語や知識を、ポートフォリオとして記録したいと思い作成しました。  
+
 
