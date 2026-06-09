@@ -15,7 +15,7 @@ Laravelで個人製作したポートフォリオです。ブログ記事を投�
 <img width="1321" height="868" alt="Image" src="https://github.com/user-attachments/assets/196951a1-5257-4526-aaa1-4df619e0d2ee" />
 
 ## URL
-https://kimmirai-2026blog-tokyo.onrender.com
+<a href="https://kimmirai-2026blog-tokyo.onrender.com" target="_blank">https://kimmirai-2026blog-tokyo.onrender.com</a>
 
 ## 使用技術
 - PHP 8.4.16
