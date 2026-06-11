@@ -27,7 +27,7 @@ Laravelで個人製作したポートフォリオです。ブログ記事を投�
 - Render
 - Supabase
 
-## アーキテクチャ図
+## システム構造図
 <img width="827" height="657" alt="Image" src="https://github.com/user-attachments/assets/1e7a0c88-1f96-4e3a-b865-30580f7509e3" />
 
 ## 機能一覧
